@@ -5,8 +5,90 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TicTacToe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="396" Width="295" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <!--#region Game Board UI Styles -->
+        <Style x:Key="GameBoard" TargetType="Grid">
+            <Setter Property="Width" Value="275"/>
+            <Setter Property="Height" Value="275"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="LightGray"/>
+        </Style>
+        <Style x:Key="GameboardSplitter" TargetType="GridSplitter">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="DarkGray"/>
+        </Style>
+        <Style x:Key="HorizentalSplitter" TargetType="GridSplitter" BasedOn="{StaticResource GameboardSplitter}">
+            <Setter Property="Width" Value="255"/>
+            <Setter Property="Height" Value="10"/>
+        </Style>
+        <Style x:Key="VerticalSplitter" TargetType="GridSplitter" BasedOn="{StaticResource GameboardSplitter}">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Height" Value="255"/>
+        </Style>
+        
+        <Style x:Key="Cells" TargetType="Button">
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontSize" Value="45"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="Gray"/>
+        </Style>
+        <!--#endregion-->
+        
+        <!--#region Score Board UI Styles -->
+        <Style x:Key="ScoreBoard" TargetType="Grid">
+            <Setter Property="Width" Value="275"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Margin" Value="0, 285, 0, 0"/>
+            <Setter Property="VerticalAlignment" Value="top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
 
+        <Style x:Key="Message" TargetType="Label">
+            <Setter Property="Width" Value="275"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0, 0, 0, 10"/>
+            <Setter Property="VerticalAlignment" Value="top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="Restart" TargetType="Button">
+            <Setter Property="Width" Value="275"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0, 10, 0, 0"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <!--#endregion-->
+    </Window.Resources>
+    <Grid>
+        <Grid x:Name="GameBoard" Style="{StaticResource GameBoard}">
+            <GridSplitter Style="{StaticResource VerticalSplitter}" Margin="0, 0, 90, 0"/>
+            <GridSplitter Style="{StaticResource HorizentalSplitter}" Margin="0, 0, 0, 90"/>
+            <GridSplitter Style="{StaticResource VerticalSplitter}" Margin="90, 0, 0, 0"/>
+            <GridSplitter Style="{StaticResource HorizentalSplitter}" Margin="0, 90, 0, 0"/>
+            <Button x:Name="Cell1" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Button x:Name="Cell2" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <Button x:Name="Cell3" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <Button x:Name="Cell4" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Button x:Name="Cell5" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button x:Name="Cell6" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button x:Name="Cell7" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Button x:Name="Cell8" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Button x:Name="Cell9" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        </Grid>
+        <Grid x:Name="ScoreBoard" Style="{StaticResource ScoreBoard}">
+            <Label x:Name="lblMessage" Style="{StaticResource Message}">No Winner!</Label>
+            <Button x:Name="btnRestart" Style="{StaticResource Restart}">Restart game</Button>
+        </Grid>
     </Grid>
 </Window>

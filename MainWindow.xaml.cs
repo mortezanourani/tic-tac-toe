@@ -24,5 +24,10 @@ namespace TicTacToe
         {
             InitializeComponent();
         }
+
+        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Mortiza\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Mortiza\\.nuget\\packages"
+    ]
+  }
+}
