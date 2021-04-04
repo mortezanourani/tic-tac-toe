@@ -11,13 +11,24 @@ namespace TicTacToe
     internal class ViewModel : INotifyPropertyChanged
     {
         #region Properties
-        private GameBoard _gameBoard = new GameBoard();
-        public GameBoard gameBoard
+        private Gameboard _GameBoard;
+        public Gameboard GameBoard
         {
-            get { return _gameBoard;  }
-            set { _gameBoard = value; propertyChanged(); }
+            get { return _GameBoard;  }
+            set { _GameBoard = value; propertyChanged(); }
         }
         #endregion
+
+        private Player User;
+        private Player Computer;
+
+        public void Initialzie()
+        {
+            User = new Player("Mortiza", "X");
+            Computer = new Player("Computer", "O");
+
+            GameBoard = new Gameboard();
+        }
 
         #region Property Changed
         public event PropertyChangedEventHandler PropertyChanged;

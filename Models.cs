@@ -19,7 +19,7 @@ namespace TicTacToe
         }
     }
 
-    public class GameBoard
+    public class Gameboard
     {
         public string Cell1 { get; set; }
         public string Cell2 { get; set; }

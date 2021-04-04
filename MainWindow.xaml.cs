@@ -26,6 +26,7 @@ namespace TicTacToe
         {
             InitializeComponent();
             DataContext = MainViewModel;
+            MainViewModel.Initialzie();
         }
 
         private void Cell_Click(object sender, RoutedEventArgs e)
