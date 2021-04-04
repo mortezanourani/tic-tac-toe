@@ -20,12 +20,20 @@ namespace TicTacToe
     /// </summary>
     public partial class MainWindow : Window
     {
+        ViewModel MainViewModel = new ViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = MainViewModel;
         }
 
-        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        private void Cell_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Restart_Click(object sender, RoutedEventArgs e)
         {
 
         }
