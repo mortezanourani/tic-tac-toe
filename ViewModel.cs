@@ -30,6 +30,30 @@ namespace TicTacToe
             GameBoard = new Gameboard();
         }
 
+        private bool IsCellEmpty(int Cell)
+        {
+            return GameBoard.EmptyCells.Contains(Cell);
+        }
+
+        public void Play(int SelectedCell)
+        {
+            if (!IsCellEmpty(SelectedCell))
+                return;
+
+            User.Select(SelectedCell);
+
+            GameBoard = GameBoard.Update(SelectedCell, User.Symbol);
+
+            if (User.IsWinner())
+                GameBoard = GameBoard.Update(string.Format("{0} Wins!", User.Name));
+
+            SelectedCell = Computer.Select(GameBoard.EmptyCells);
+            GameBoard = GameBoard.Update(SelectedCell, Computer.Symbol);
+
+            if (User.IsWinner())
+                GameBoard = GameBoard.Update(string.Format("{0} Wins!", Computer.Name));
+        }
+
         #region Property Changed
         public event PropertyChangedEventHandler PropertyChanged;
         protected void propertyChanged([CallerMemberName] string porpertyName = "")

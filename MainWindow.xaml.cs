@@ -31,12 +31,13 @@ namespace TicTacToe
 
         private void Cell_Click(object sender, RoutedEventArgs e)
         {
-
+            int CellId = Int32.Parse(((Button)sender).Tag.ToString());
+            MainViewModel.Play(CellId);
         }
 
         private void Restart_Click(object sender, RoutedEventArgs e)
         {
-
+            MainViewModel.Initialzie();
         }
     }
 }
