@@ -10,6 +10,13 @@ namespace TicTacToe
 {
     internal class ViewModel : INotifyPropertyChanged
     {
+        #region Fields
+        private const string UserName = "Mortiza";
+        private const string UserSymbol = "X";
+        private const string ComputerName = "Computer";
+        private const string ComputerSymbol = "O";
+        #endregion
+
         #region Properties
         private Gameboard _GameBoard;
         public Gameboard GameBoard
@@ -24,34 +31,46 @@ namespace TicTacToe
 
         public void Initialzie()
         {
-            User = new Player("Mortiza", "X");
-            Computer = new Player("Computer", "O");
+            User = new Player(UserName, UserSymbol);
+            Computer = new Player(ComputerName, ComputerSymbol);
 
             GameBoard = new Gameboard();
         }
 
-        private bool IsCellEmpty(int Cell)
+        public void Play(int CellNumber)
         {
-            return GameBoard.EmptyCells.Contains(Cell);
-        }
-
-        public void Play(int SelectedCell)
-        {
-            if (!IsCellEmpty(SelectedCell))
+            if (GameBoard.IsGameOver)
                 return;
 
-            User.Select(SelectedCell);
+            if (!GameBoard.IsCellEmpty(CellNumber))
+                return;
 
-            GameBoard = GameBoard.Update(SelectedCell, User.Symbol);
+            GameBoard = GameBoard.Update(User, CellNumber);
 
+            // Check If User Wins
             if (User.IsWinner())
-                GameBoard = GameBoard.Update(string.Format("{0} Wins!", User.Name));
+            {
+                GameBoard = GameBoard.NotifyWins(User);
+                return;
+            }
 
-            SelectedCell = Computer.Select(GameBoard.EmptyCells);
-            GameBoard = GameBoard.Update(SelectedCell, Computer.Symbol);
+            // Check If Draw
+            if(GameBoard.EmptyCells.Count() == 0)
+            {
+                GameBoard = GameBoard.NotifyDraw();
+                return;
+            }
 
-            if (User.IsWinner())
-                GameBoard = GameBoard.Update(string.Format("{0} Wins!", Computer.Name));
+            // Computer.Select();
+            CellNumber = Computer.Select(GameBoard.EmptyCells);
+            GameBoard = GameBoard.Update(Computer, CellNumber);
+
+            // Check If Computer Wins
+            if (Computer.IsWinner())
+            {
+                GameBoard = GameBoard.NotifyWins(Computer);
+                return;
+            }
         }
 
         #region Property Changed

@@ -8,9 +8,25 @@ namespace TicTacToe
 {
     public class Player
     {
+        #region Fields
         public string Name;
         public string Symbol;
         public int[] Selects = new int[] { };
+
+        public string WinningMessage;
+
+        private List<int[]> WinnerSets = new List<int[]>()
+        {
+            new int[] { 1, 2, 3 },
+            new int[] { 4, 5, 6 },
+            new int[] { 7, 8, 9 },
+            new int[] { 1, 4, 7 },
+            new int[] { 2, 5, 8 },
+            new int[] { 3, 6, 9 },
+            new int[] { 1, 5, 9 },
+            new int[] { 3, 5, 7 }
+        };
+        #endregion
 
         public Player(string playerName, string playerSymbol)
         {
@@ -22,30 +38,27 @@ namespace TicTacToe
         {
             Random Rand = new Random();
             int indx = Rand.Next(PossibleMoves.Length);
-            return PossibleMoves[indx];
-        }
 
-        public void Select(int SelectedCell)
-        {
             List<int> Temp = new List<int>();
             foreach (int TempItem in this.Selects)
             {
                 Temp.Add(TempItem);
             }
-            Temp.Add(SelectedCell);
+            Temp.Add(PossibleMoves[indx]);
             this.Selects = Temp.ToArray();
-            return;
+            return PossibleMoves[indx];
         }
 
         public bool IsWinner()
         {
-            // If selects contains any of winning sets retrun true
-            return true;
+            if (WinnerSets.Any(WinnerSet => WinnerSet.All(Select => this.Selects.Contains(Select)))) return true;
+            return false;
         }
     }
 
     public class Gameboard
     {
+        #region Properties
         public string Cell1 { get; set; }
         public string Cell2 { get; set; }
         public string Cell3 { get; set; }
@@ -55,22 +68,47 @@ namespace TicTacToe
         public string Cell7 { get; set; }
         public string Cell8 { get; set; }
         public string Cell9 { get; set; }
-
         public string Message { get; set; }
+        #endregion
 
+        #region Fields
+        public bool IsGameOver;
         public int[] EmptyCells = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        #endregion
 
-        public Gameboard Update(int Position, string Symbol)
+        #region Constants
+        private const string WinMessage = "{0} Wins!";
+        private const string DrawMessage = "No one wins, so Draw!";
+        #endregion
+
+        #region Methods
+        public bool IsCellEmpty(int CellNumber)
         {
+            return this.EmptyCells.Contains(CellNumber);
+        }
+
+        public Gameboard Update(Player Player, int CellNumber)
+        {
+            // Update Player's selected cells list
             List<int> Temp = new List<int>();
+            foreach (int TempItem in Player.Selects)
+            {
+                Temp.Add(TempItem);
+            }
+            Temp.Add(CellNumber);
+            Player.Selects = Temp.ToArray();
+
+            // Update Gameboard's empty cells list
+            Temp.Clear();
             foreach(int Cell in this.EmptyCells)
             {
-                if (Cell == Position) continue;
+                if (Cell == CellNumber) continue;
                 Temp.Add(Cell);
             }
             this.EmptyCells = Temp.ToArray();
 
-            switch (Position)
+            string Symbol = Player.Symbol;
+            switch (CellNumber)
             {
                 case 1:
                     this.Cell1 = Symbol;
@@ -103,10 +141,18 @@ namespace TicTacToe
 
             return this;
         }
-
-        public Gameboard Update(string Message)
+        #endregion
+        public Gameboard NotifyWins(Player Winner)
         {
-            this.Message = Message;
+            this.IsGameOver = true;
+            this.Message = string.Format(WinMessage, Winner.Name);
+            return this;
+        }
+
+        public Gameboard NotifyDraw()
+        {
+            this.IsGameOver = true;
+            this.Message = DrawMessage;
             return this;
         }
     }

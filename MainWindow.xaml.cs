@@ -31,8 +31,8 @@ namespace TicTacToe
 
         private void Cell_Click(object sender, RoutedEventArgs e)
         {
-            int CellId = Int32.Parse(((Button)sender).Tag.ToString());
-            MainViewModel.Play(CellId);
+            int CellNumber = Int32.Parse(((Button)sender).Tag.ToString());
+            MainViewModel.Play(CellNumber);
         }
 
         private void Restart_Click(object sender, RoutedEventArgs e)
