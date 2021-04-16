@@ -31,8 +31,10 @@ namespace TicTacToe
 
         private void Cell_Click(object sender, RoutedEventArgs e)
         {
-            int CellNumber = Int32.Parse(((Button)sender).Tag.ToString());
-            MainViewModel.Play(CellNumber);
+            string UsreMove = ((Button)sender).Tag.ToString();
+            int selectedRow = Int32.Parse(UsreMove.Substring(0, 1));
+            int selectedColumn = Int32.Parse(UsreMove.Substring(1, 1));
+            MainViewModel.Play(selectedRow, selectedColumn);
         }
 
         private void Restart_Click(object sender, RoutedEventArgs e)

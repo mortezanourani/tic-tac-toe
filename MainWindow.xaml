@@ -76,18 +76,18 @@
             <GridSplitter Style="{StaticResource HorizentalSplitter}" Margin="0, 0, 0, 90"/>
             <GridSplitter Style="{StaticResource VerticalSplitter}" Margin="90, 0, 0, 0"/>
             <GridSplitter Style="{StaticResource HorizentalSplitter}" Margin="0, 90, 0, 0"/>
-            <Button x:Name="btnCell1" Tag="1" Click="Cell_Click" Content="{Binding GameBoard.Cell1}" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <Button x:Name="btnCell2" Tag="2" Click="Cell_Click" Content="{Binding GameBoard.Cell2}" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-            <Button x:Name="btnCell3" Tag="3" Click="Cell_Click" Content="{Binding GameBoard.Cell3}" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-            <Button x:Name="btnCell4" Tag="4" Click="Cell_Click" Content="{Binding GameBoard.Cell4}" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <Button x:Name="btnCell5" Tag="5" Click="Cell_Click" Content="{Binding GameBoard.Cell5}" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button x:Name="btnCell6" Tag="6" Click="Cell_Click" Content="{Binding GameBoard.Cell6}" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Button x:Name="btnCell7" Tag="7" Click="Cell_Click" Content="{Binding GameBoard.Cell7}" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-            <Button x:Name="btnCell8" Tag="8" Click="Cell_Click" Content="{Binding GameBoard.Cell8}" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-            <Button x:Name="btnCell9" Tag="9" Click="Cell_Click" Content="{Binding GameBoard.Cell9}" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+            <Button x:Name="btnCell1" Tag="00" Click="Cell_Click" Content="{Binding GameBoard[0][0]}" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Button x:Name="btnCell2" Tag="01" Click="Cell_Click" Content="{Binding GameBoard[0][1]}" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <Button x:Name="btnCell3" Tag="02" Click="Cell_Click" Content="{Binding GameBoard[0][2]}" Style="{StaticResource Cells}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <Button x:Name="btnCell4" Tag="10" Click="Cell_Click" Content="{Binding GameBoard[1][0]}" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Button x:Name="btnCell5" Tag="11" Click="Cell_Click" Content="{Binding GameBoard[1][1]}" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button x:Name="btnCell6" Tag="12" Click="Cell_Click" Content="{Binding GameBoard[1][2]}" Style="{StaticResource Cells}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Button x:Name="btnCell7" Tag="20" Click="Cell_Click" Content="{Binding GameBoard[2][0]}" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Button x:Name="btnCell8" Tag="21" Click="Cell_Click" Content="{Binding GameBoard[2][1]}" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Button x:Name="btnCell9" Tag="22" Click="Cell_Click" Content="{Binding GameBoard[2][2]}" Style="{StaticResource Cells}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
         </Grid>
         <Grid x:Name="ScoreBoard" Style="{StaticResource ScoreBoard}">
-            <Label x:Name="lblMessage" Content="{Binding GameBoard.Message}" Style="{StaticResource Message}"></Label>
+            <Label x:Name="lblMessage" Content="{Binding Message}" Style="{StaticResource Message}"></Label>
             <Button x:Name="btnRestart" Style="{StaticResource Restart}" Click="Restart_Click">Restart game</Button>
         </Grid>
     </Grid>
