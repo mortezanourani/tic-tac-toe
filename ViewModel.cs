@@ -14,10 +14,10 @@ namespace TicTacToe
         private const string USER_SYMBOL = "X";
         private const string AI_SYMBOL = "O";
 
-        private const int INCOMPLETE = 0;
+        private const int INCOMPLETE = 2;
         private const int USER_WON = 1;
         private const int AI_WON = -1;
-        private const int TOE = 2;
+        private const int TOE = 0;
 
         private const string TOE_MESSAGE = "No Winner!";
         private const string AI_WON_MESSAGE = "You Lose!";
@@ -133,6 +133,64 @@ namespace TicTacToe
             return;
         }
 
+        private int aiSelect(out int Weight)
+        {
+            int xCount = 0;
+            int oCount = 0;
+            List<int> EmptyCells = new List<int>();
+            for (int r = 0; r <= 2; r++)
+                for (int c = 0; c <= 2; c++)
+                    if (string.IsNullOrEmpty(GameBoard[r][c]))
+                    {
+                        EmptyCells.Add(r * 3 + c);
+                    }
+                    else
+                    {
+                        if (GameBoard[r][c] == "X")
+                            xCount++;
+                        if (GameBoard[r][c] == "O")
+                            oCount++;
+                    }
+
+            string playerSymbol;
+            if (xCount > oCount)
+                playerSymbol = AI_SYMBOL;
+            else
+                playerSymbol = USER_SYMBOL;
+
+            Weight = 2;
+            int Best = TOE;
+            int bestMove = 0;
+            int nextMove = 0;
+            foreach (int Cell in EmptyCells)
+            {
+                int r = Cell / 3;
+                int c = Cell % 3;
+                GameBoard[r][c] = playerSymbol;
+
+                Weight = getState();
+                if(Weight != INCOMPLETE)
+                {
+                    GameBoard[r][c] = "";
+                    return r * 3 + c;
+                }
+                else
+                {
+                    nextMove = aiSelect(out Weight);
+                    if (Weight <= Best)
+                    {
+                        bestMove = r * 3 + c;
+                    }
+                    GameBoard[r][c] = "";
+                }
+            }
+
+            if (bestMove == 0)
+                return EmptyCells[0];
+
+            return bestMove;
+        }
+
         public void Play(int CellRow, int CellColumn)
         {
             // User Turn
@@ -150,7 +208,11 @@ namespace TicTacToe
             if (getState() != INCOMPLETE)
                 return;
 
-            aiChoice(out CellRow, out CellColumn);
+            //aiChoice(out CellRow, out CellColumn);
+            int Weight;
+            int aiCell = aiSelect(out Weight);
+            CellRow = aiCell / 3;
+            CellColumn = aiCell % 3;
 
             GameBoard[CellRow][CellColumn] = AI_SYMBOL;
 
